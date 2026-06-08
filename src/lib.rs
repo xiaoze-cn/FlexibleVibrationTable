@@ -2,6 +2,9 @@ use std::io::{Read, Write};
 use std::net::{TcpStream, ToSocketAddrs};
 use std::time::Duration;
 
+#[cfg(feature = "python")]
+mod interface;
+
 pub type Result<T> = std::result::Result<T, Error>;
 
 pub const DEFAULT_FREQUENCY: u16 = 300;
@@ -41,10 +44,10 @@ pub enum MotionMode {
     MoveLeft,
     MoveForward,
     MoveBackward,
-    MoveToUpperRight,
-    MoveToUpperLeft,
-    MoveToLowerLeft,
-    MoveToLowerRight,
+    MoveUpperRight,
+    MoveUpperLeft,
+    MoveLowerLeft,
+    MoveLowerRight,
     Bounce,
     CenterHorizontal,
     CenterVertical,
@@ -59,10 +62,10 @@ impl MotionMode {
             Self::MoveLeft => 2,
             Self::MoveForward => 3,
             Self::MoveBackward => 4,
-            Self::MoveToUpperRight => 5,
-            Self::MoveToUpperLeft => 6,
-            Self::MoveToLowerLeft => 7,
-            Self::MoveToLowerRight => 8,
+            Self::MoveUpperRight => 5,
+            Self::MoveUpperLeft => 6,
+            Self::MoveLowerLeft => 7,
+            Self::MoveLowerRight => 8,
             Self::Bounce => 9,
             Self::CenterHorizontal => 10,
             Self::CenterVertical => 11,
@@ -77,10 +80,10 @@ impl MotionMode {
             Self::MoveLeft => 4168,
             Self::MoveForward => 4170,
             Self::MoveBackward => 4172,
-            Self::MoveToUpperRight => 4174,
-            Self::MoveToUpperLeft => 4176,
-            Self::MoveToLowerLeft => 4178,
-            Self::MoveToLowerRight => 4180,
+            Self::MoveUpperRight => 4174,
+            Self::MoveUpperLeft => 4176,
+            Self::MoveLowerLeft => 4178,
+            Self::MoveLowerRight => 4180,
             Self::Bounce => 4182,
             Self::CenterHorizontal => 4184,
             Self::CenterVertical => 4186,
@@ -95,10 +98,10 @@ impl MotionMode {
             Self::MoveLeft => 4169,
             Self::MoveForward => 4171,
             Self::MoveBackward => 4173,
-            Self::MoveToUpperRight => 4175,
-            Self::MoveToUpperLeft => 4177,
-            Self::MoveToLowerLeft => 4179,
-            Self::MoveToLowerRight => 4181,
+            Self::MoveUpperRight => 4175,
+            Self::MoveUpperLeft => 4177,
+            Self::MoveLowerLeft => 4179,
+            Self::MoveLowerRight => 4181,
             Self::Bounce => 4183,
             Self::CenterHorizontal => 4185,
             Self::CenterVertical => 4187,
